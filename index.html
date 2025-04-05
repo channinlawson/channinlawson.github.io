@@ -3,62 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to SeattleGuamy</title>
+    <title>Welcome to Gua's Birthday Party!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Nunito', sans-serif;
+            background-image: url('img/pic1.JPG');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
             margin: 0;
             padding: 0;
-            color: #333;
-            background-color: #f4f4f4;
+            text-align: center;
+            animation: backgroundZoom 30s infinite alternate;
+        }
+        @keyframes backgroundZoom {
+            from { background-size: cover; }
+            to { background-size: 105%; }
         }
         .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #0779e4 3px solid;
-        }
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
-        footer {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             padding: 20px;
-            margin-top: 20px;
-            background: #333;
-            color: #fff;
-            text-align: center;
+            margin: 40px auto;
+            display: inline-block;
+            border-radius: 8px;
+            max-width: 800px; /* Increased max width */
+            animation: fadeIn 2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         h1, h2 {
-            color: #333;
+            color: #007BFF;
+            animation: popIn 1s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        .date-time, .location {
+            color: #28A745;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        footer {
+            color: #6c757d;
+            background: #f8f9fa;
+            margin-top: 20px;
+            padding: 10px 0;
+            font-size: 0.9em;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+        .gallery {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .gallery img {
+            max-width: 150px; /* Adjusted max size from 100px to 150px */
+            margin: 5px;
+            border-radius: 5px;
+            animation: float 5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .details {
+            font-size: 1.2em;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Welcome to SeattleGuamy</h1>
-        </div>
-    </header>
+    <div class="container">
+        <h1>Welcome to Gua's 2nd Birthday Party!</h1>
+        <h2>Let's Celebrate Together!</h2>
+        <p class="details">We are thrilled to invite you to an afternoon filled with joy and fun.</p>
+        <p class="date-time">April 26th at 2:00 PM</p>
+        <p class="location">123 Party St., Celebration City</p>
 
-    <div class="container" style="padding: 20px; background: white; margin-top: 20px;">
-        <h2>About Us</h2>
-        <p>This is a demo website for the SeattleGuamy project hosted on GitHub Pages.</p>
-        <img src="https://via.placeholder.com/400" alt="Placeholder Image">
-        <p>Thank you for visiting our website. We hope you find the information helpful and enjoy your stay!</p>
+    </div>
+
+    <!-- Dynamic image gallery -->
+    <div class="gallery" id="imageGallery">
+        <!-- Images will be inserted here by JavaScript -->
     </div>
 
     <footer>
-        <p>Copyright © 2023 SeattleGuamy</p>
+        <p>Contact us at <a href="mailto:hello@seattleguamy.com" style="color: #007BFF;">hello@seattleguamy.com</a> for more details.</p>
     </footer>
+
+    <script>
+        const images = ["img/pic2.JPG", "img/pic3.JPG", "img/pic4.JPG", "img/pic5.JPG", "img/pic6.JPG", "img/pic7.JPG", "img/pic8.JPG", "img/pic9.JPG", "img/pic10.JPG"];
+        const gallery = document.getElementById('imageGallery');
+        let displayedImages = [];
+
+        // Function to create a new image element that maintains the image's original aspect ratio
+        function createImageElement(imageSrc) {
+            const imgElement = document.createElement('img');
+            imgElement.src = imageSrc;
+            imgElement.style.maxHeight = '100px'; // Use max-height to maintain aspect ratio
+            imgElement.style.margin = '5px';
+            imgElement.style.borderRadius = '5px';
+            imgElement.style.animation = 'popIn 2s ease-in, float 5s ease-in-out infinite';
+            return imgElement;
+        }
+
+        // Initialize the gallery with 4 random images
+        function initializeGallery() {
+            while (displayedImages.length < 4) {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                if (!displayedImages.includes(images[randomIndex])) {
+                    displayedImages.push(images[randomIndex]);
+                    const imgElement = createImageElement(images[randomIndex]);
+                    gallery.appendChild(imgElement);
+                }
+            }
+        }
+
+        let currentIndex = 0; // Initialize a counter to keep track of the current index
+
+        // Function to replace an image in the gallery in sequence
+        function replaceRandomImage() {
+            if (displayedImages.length === 4) {
+                let newImage;
+                // Ensure we select an image not currently displayed
+                do {
+                    const randomIndex = Math.floor(Math.random() * images.length);
+                    newImage = images[randomIndex];
+                } while (displayedImages.includes(newImage));
+
+                const newImgElement = createImageElement(newImage);
+                // Replace the image at the current index
+                gallery.replaceChild(newImgElement, gallery.children[currentIndex]);
+                displayedImages[currentIndex] = newImage;
+
+                // Move to the next index, wrapping around if necessary
+                currentIndex = (currentIndex + 1) % displayedImages.length;
+            }
+        }
+
+        // Initialize gallery and set interval for replacing images
+        window.onload = initializeGallery;
+        setInterval(replaceRandomImage, 1500);
+    </script>
 </body>
 </html>
