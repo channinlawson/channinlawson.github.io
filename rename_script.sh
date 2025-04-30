@@ -1,22 +1,23 @@
 #!/bin/bash
 
+# Directory containing your images
 IMG_DIR="./img"
-COUNT=1
 
-# Loop over files not already starting with 'pic'
-find "$IMG_DIR" -maxdepth 1 -type f ! -iname "pic*" \( -iname "*.jpeg" -o -iname "*.jpg" \) | sort | while IFS= read -r FILE; do
-  # Create new filename with normalized .jpg extension
-  NEW_NAME="$IMG_DIR/pic${COUNT}.jpg"
+# Declare an array of the original filenames
+original_files=(
+  "pic1.jpg" "pic2.jpg" "pic4.jpg" "pic5.jpg" "pic6.jpg" "pic7.jpg"
+  "pic8.jpg" "pic9.jpg" "pic10.jpg" "pic11.jpg" "pic12.jpg" "pic13.jpg"
+  "pic14.jpg" "pic15.jpg" "pic16.jpg" "pic17.jpg" "pic18.jpg" "pic19.jpg"
+  "pic20.jpg" "pic21.jpg" "pic23.jpg" "pic26.jpg" "pic27.jpg" "pic28.jpg"
+  "pic29.jpg"
+)
 
-  # If the new filename already exists, find the next available number
-  while [ -e "$NEW_NAME" ]; do
-    COUNT=$((COUNT + 1))
-    NEW_NAME="$IMG_DIR/pic${COUNT}.jpg"
-  done
-
-  # Rename the file
-  mv "$FILE" "$NEW_NAME"
-  echo "Renamed: $FILE → $NEW_NAME"
-
-  COUNT=$((COUNT + 1))
+# Loop through and rename files
+counter=1
+for file in "${original_files[@]}"; do
+  ext="${file##*.}"
+  new_name=$(printf "photo%02d.%s" "$counter" "$ext")
+  mv "$IMG_DIR/$file" "$IMG_DIR/$new_name"
+  echo "Renamed $file -> $new_name"
+  ((counter++))
 done

@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-image: url('img/pic1.jpg');
+            background-image: url('img/photo01.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -103,11 +103,11 @@
 
     <script>
     const imageCount = 26;
-    const images = [];
 
-    for (let i = 1; i <= imageCount; i++) {
-        images.push(`img/pic${i}.jpg`);
-    }
+    const images = Array.from({ length: 25 }, (_, i) => {
+    const number = String(i + 1).padStart(2, '0');
+    return `img/photo${number}.jpg`;
+  });
 
     const gallery = document.getElementById('imageGallery');
     let displayedImages = [];
