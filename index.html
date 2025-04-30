@@ -88,9 +88,8 @@
         <h1>Welcome to Gua's 2nd Birthday Party!</h1>
         <h2>Let's Celebrate Together!</h2>
         <p class="details">We are thrilled to invite you to an afternoon filled with joy and fun.</p>
-        <p class="date-time">April 26th at 2:00 PM</p>
-        <p class="location">123 Party St., Celebration City</p>
-
+        <p class="date-time">Time: May 3rd (Sat.) at 5:30 PM</p>
+        <p class="location">Venue: Guamy's</p>
     </div>
 
     <!-- Dynamic image gallery -->
@@ -103,9 +102,15 @@
     </footer>
 
     <script>
-        const images = ["img/pic2.JPG", "img/pic3.jpg", "img/pic4.jpg", "img/pic5.jpg", "img/pic6.jpg", "img/pic7.jpg", "img/pic8.jpg", "img/pic9.jpg", "img/pic10.jpg"];
-        const gallery = document.getElementById('imageGallery');
-        let displayedImages = [];
+    const imageCount = 26;
+    const images = [];
+
+    for (let i = 1; i <= imageCount; i++) {
+        images.push(`img/pic${i}.jpg`);
+    }
+
+    const gallery = document.getElementById('imageGallery');
+    let displayedImages = [];
 
         // Function to create a new image element that maintains the image's original aspect ratio
         function createImageElement(imageSrc) {
